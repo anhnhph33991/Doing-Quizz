@@ -30,6 +30,7 @@ const Sign = () => {
         setNewUserPassword(e.target.value);
     }
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
 

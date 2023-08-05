@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const ListUser = () => {
-    let [check, setCheck] = useState(true) // set biến check === true
+    const [check, setCheck] = useState(true) // set biến check === true
     const [listUser, setListUser] = useState([
         {
             id: 1,
@@ -20,8 +20,34 @@ const ListUser = () => {
         }
     ]) // set array object 
 
+    const [date, setDate] = useState(new Date())
+    let interval;
+
+    useEffect(() => {
+        interval = setInterval(() => {
+            tick()
+        }, 1000)    
+        return () => {
+            clearInterval(interval)
+        }
+    }, [])
+
+    const tick = () => {
+        setDate(new Date())
+    }
+
+    const format = val => {
+        if(val < 10){
+            val = "0" + val
+        }
+
+        return val
+    }
+
+
+
     const showHideList = () => {
-        setCheck(check = !check) // setCheck = ! khác giá trị check hiện tại
+        setCheck(!check) // setCheck = ! khác giá trị check hiện tại
     }
 
     return (
@@ -47,6 +73,11 @@ const ListUser = () => {
 
                 </div>
             }
+
+            {/** Create clock */}
+            <div className="clock__date">
+                <h3>Đồng Hồ - <span>{date.getHours()} : {format(date.getMinutes())} : {format(date.getSeconds())}</span></h3>
+            </div>
         </div>
     )
 }

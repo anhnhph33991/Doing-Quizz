@@ -1,45 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import "./style/displayInfor.scss"
+import logo from "../logo.svg"
 
-class DisplayInfor extends React.Component {
+const DisplayInfor = (props) => {
+    const [isShowHide, setIsShowHide] = useState(true)
+    const {listUser, handleDeleteUser} = props
 
-    state = {
-        isShowListUser: true // set state = true / text luôn mở 
+    const handleShowHide = () => {
+        setIsShowHide(!isShowHide)
     }
+    return (
+        <div className="display-infor-container">
 
-
-    handleShowHide = () => {
-        this.setState({
-            isShowListUser: !this.state.isShowListUser // setState: ! Khác với giá trị hiện tại của state
-        })
-    }
-
-    render() {
-        const { listUser } = this.props
-        return (
             <div>
-                <div>
-                    <button className="showHide" onClick={() => this.handleShowHide()}>{this.state.isShowListUser === true ? "Hide list user" : "Show list user"}</button>
-                </div>
-
-                { this.state.isShowListUser &&
-                    <div>
-                        {
-                            listUser.map((user) => {
-                                return (
-                                    <div key={user.id} className={user.age > 19 ? "green" : "red"}>
-                                        <div>My name's {user.name}</div>
-                                        <div>My age's {user.age}</div>
-                                        <hr />
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                }
-
+                <button onClick={() => handleShowHide()}>{isShowHide === true ? "Hide ListUser" : "Show ListUser"}</button>
             </div>
-        )
-    }
+
+            {
+            isShowHide &&
+            <div>
+                {listUser.map((item) => {
+                    return (
+                        <div key={item.id} className={item.age > 19 ? "green" : "red"}>
+                            <h5>{item.name}</h5>
+                            <h5>{item.age}</h5>
+                            <button onClick={() => handleDeleteUser(item.id)}>Delete</button>
+                        </div>
+                    )
+                })}
+            </div>
+            }
+
+            <img src={logo} alt="This my logo app" className="img__logo" />
+
+        </div>
+    )
 }
 
 export default DisplayInfor
