@@ -1,16 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// import React Router:
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Admin from "./components/Admin/Admin";
+import User from "./components/User/User";
+import Home from "./components/Home/Home";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     {/* <React.StrictMode> */}
-      <App />
+    <BrowserRouter> {/** Bọc app vào router */}
+      <Routes>
+        <Route path="/" element={<App />}> {/* Use Router App bọc tất cả các router còn lại kế thừa header.... */}
+          <Route path="home" element={<Home />} />
+          <Route path="admin" element={<Admin />} />
+          <Route path="user" element={<User />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
     {/* </React.StrictMode> */}
   </Provider>
 );

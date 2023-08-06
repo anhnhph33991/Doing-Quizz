@@ -1,0 +1,19 @@
+.header__navbar {
+
+  .navbar-nav {
+    .nav-link {
+      &.active { // &: kí tự đánh dấu class ngang hàng class bọc trên nó
+        color: #1e90ff;
+      }
+    }
+  }
+
+  .navbar__item {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .navbar__item:hover {
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
