@@ -16,13 +16,18 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     {/* <React.StrictMode> */}
-    <BrowserRouter> {/** Bọc app vào router */}
+    <BrowserRouter>
+      {" "}
+      {/** Bọc app vào router */}
       <Routes>
-        <Route path="/" element={<App />}> {/* Use Router App bọc tất cả các router còn lại kế thừa header.... */}
-          <Route path="home" element={<Home />} />
-          <Route path="admin" element={<Admin />} />
+        <Route path="/" element={<App />}>
+          {" "}
+          {/* Use Router App bọc tất cả các router còn lại kế thừa header.... */}
+          <Route index element={<Home />} />{" "}
+          {/* truyền props index thay vì path để / sẽ có index là components home */}
           <Route path="user" element={<User />} />
         </Route>
+        <Route path="admin" element={<Admin />} /> {/* Bê admin ra ngoài k bị ảnh hưởng header của app */}
       </Routes>
     </BrowserRouter>
     {/* </React.StrictMode> */}

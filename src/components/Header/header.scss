@@ -1,8 +1,8 @@
 .header__navbar {
-
   .navbar-nav {
     .nav-link {
-      &.active { // &: kí tự đánh dấu class ngang hàng class bọc trên nó
+      &.active {
+        // &: kí tự đánh dấu class ngang hàng class bọc trên nó
         color: #1e90ff;
       }
     }
@@ -15,5 +15,28 @@
 
   .navbar__item:hover {
     color: rgba(0, 0, 0, 0.7);
+  }
+
+  .btn__login {
+    border-radius: 5px;
+    padding: 5px 15px 5px 15px;
+    margin-right: 10px;
+    background-color: #acb4bd3b;
+    border: 1px solid #ccc0;
+    &:hover {
+      background-color: #dcdcdc;
+    }
+  }
+
+  .btn__signup {
+    border-radius: 5px;
+    padding: 5px 15px 5px 15px;
+    background-color: black;
+    color: aliceblue;
+    border: 1px solid #ccc;
+    &:hover {
+      background-color: #dcdcdc;
+      color: black;
+    }
   }
 }
