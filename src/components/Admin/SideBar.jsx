@@ -8,17 +8,17 @@ import {
     SidebarContent,
 } from 'react-pro-sidebar';
 import { FaGithub } from 'react-icons/fa';
-import { TbCandy } from "react-icons/tb";
-import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
-import { RiAdminLine } from "react-icons/ri";
+import { DiReact } from "react-icons/di";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { TbDashboard } from "react-icons/tb";
+
 
 import sidebarBg from '../../assets/background-img.jpg';
 import 'react-pro-sidebar/dist/css/styles.css';
-
 import { Link } from 'react-router-dom';
 
-const SideBar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
-
+const SideBar = (props) => {
+    const { image, collapsed, rtl, toggled, handleToggleSidebar } = props
     return (
         <>
             <ProSidebar
@@ -42,31 +42,33 @@ const SideBar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        LuxChill
+                        <DiReact size={'3em'} color={"00bfff"} />
+                        <span>LuxChill</span>
                     </div>
                 </SidebarHeader>
 
                 <SidebarContent>
                     <Menu iconShape="circle">
                         <MenuItem
-                            icon={<AiOutlineHome />}
+                            icon={<TbDashboard />}
                             suffix={<span className="badge red">New</span>}
                         >
-                            Home
-                            <Link to="/" />
+                            Dashboarh
+                            <Link to="/admin" />
                         </MenuItem>
-                        <MenuItem icon={<AiOutlineUser />}>User <Link to="/user" />
-                        </MenuItem>
-                        <MenuItem icon={<RiAdminLine />}>Admin <Link to="/admin" /> </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
-                            icon={<TbCandy />}
+                            icon={<MdOutlineManageAccounts />}
                             suffix={<span className="badge yellow">3</span>}
-                            title="KeoKe6789"
+                            title="Management"
                         >
-                            <MenuItem>Login</MenuItem>
-                            <MenuItem>Signup</MenuItem>
+                            <MenuItem>
+                                User
+                                <Link to="/admin/manageusers" />
+                            </MenuItem>
+                            <MenuItem>Quizz</MenuItem>
+                            <MenuItem>Question</MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
@@ -83,11 +85,10 @@ const SideBar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                             target="_blank"
                             className="sidebar-btn"
                             rel="noopener noreferrer"
-                            style={{ textDecoration: "none", color: "#adadad" }}
                         >
-                            <FaGithub />
+                            <span><FaGithub size={'1.2rem'} style={{ marginBottom: "2px" }} /></span>
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                Soure Code
+                                Source Code
                             </span>
                         </a>
                     </div>

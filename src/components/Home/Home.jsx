@@ -13,10 +13,8 @@ const Home = () => {
         </div>
         <div class="col-md-6 float-right">
           <h5 className='text-center text__item'>Hello, Wellcome My Web Quizz Test by:David William</h5>
-          
         </div>
       </div>
-
     </div>
   )
 }

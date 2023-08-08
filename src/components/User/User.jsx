@@ -1,8 +1,9 @@
 import React from 'react'
 
+
 const User = (props) => {
   return (
-    <div>This my user pages</div>
+    <div>This my page User</div>
   )
 }
 
