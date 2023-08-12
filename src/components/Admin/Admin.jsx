@@ -48,5 +48,3 @@ const Admin = (props) => {
 }
 
 export default Admin
-
-{/** https://github.com/azouaoui-med/react-pro-sidebar/blob/v0.x/demo/src/Main.js */ }

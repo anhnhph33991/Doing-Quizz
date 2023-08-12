@@ -5,7 +5,9 @@ import { GrView } from "react-icons/gr";
 
 
 const TableUser = (props) => {
-    const { listUser } = props
+    const { listUser, handleClickUpdate, handleClickView, handleClickDelete} = props
+
+
 
     return (
         <>
@@ -29,9 +31,9 @@ const TableUser = (props) => {
                                 <td>{item.role}</td>
                                 <td>{item.role}</td>
                                 <td>
-                                    <button className='btn btn-light'><GrView /></button>
-                                    <button className='btn btn-warning mx-3'><GrUpdate /></button>
-                                    <button className='btn btn-danger'><AiFillDelete /></button>
+                                    <button className='btn btn-light' onClick={() => handleClickView(item)}><GrView /></button>
+                                    <button className='btn btn-warning mx-3' onClick={() => handleClickUpdate(item)}><GrUpdate /></button>
+                                    <button className='btn btn-danger' onClick={() => handleClickDelete(item)}><AiFillDelete /></button>
                                 </td>
                             </tr>
                         )
