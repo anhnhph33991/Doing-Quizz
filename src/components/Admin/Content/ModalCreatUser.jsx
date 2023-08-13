@@ -34,24 +34,7 @@ const ModalCreateUser = (props) => {
         }
     }
 
-    // const validateEmail = (email) => {
-    //     return String(email)
-    //         .toLowerCase()
-    //         .match(
-    //             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    //         );
-    // };
-
     const handleSubmitCreateUser = async () => {
-        // thay vì validate ở BE thì file axiosCustomize sẽ validate và lấy mess.erro ở BE
-
-        // validate
-        // const isValiEmail = validateEmail(email)
-
-        // if(!isValiEmail){
-        //     toast.error("Email không hợp lệ!")
-        //     return
-        // }
 
         if(!password){
             toast.error("Vui lòng nhập password!")
@@ -64,7 +47,8 @@ const ModalCreateUser = (props) => {
         if(data && data.EC === 0){
             toast.success(data.EM)
             handleClose()
-            await fetchListUser() // props call api getalluser bên components cha ManageUser
+            props.setCurrentPage(1)
+            await props.fetchListUserWithPaginate(1) 
         }
 
         if(data && data.EC !== 0){

@@ -18,7 +18,6 @@ const ModalUpdate = (props) => {
     const [previewImg, setPreviewImg] = useState("")
 
     useEffect(() => {
-        console.log('Runner Update')
         if (!_.isEmpty(dataUpdate)) { /** _.isEmpty: hàm check object rỗng hay không - ở đây là khác rỗng thì sẽ set cho các trường */
             setEmail(dataUpdate.email)
             setUserName(dataUpdate.username)
@@ -62,7 +61,8 @@ const ModalUpdate = (props) => {
         if (data && data.EC === 0) {
             toast.success(data.EM)
             handleClose()
-            await fetchListUser() // props call api getalluser bên components cha ManageUser
+            // props.setCurrentPage(1)
+            await props.fetchListUserWithPaginate(props.currentPage) 
         }
 
         if (data && data.EC !== 0) {

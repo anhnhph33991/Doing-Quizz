@@ -1,9 +1,15 @@
 import { GrUpdate } from "react-icons/gr";
 import { AiFillDelete } from "react-icons/ai";
 import { GrView } from "react-icons/gr";
+import ReactPaginate from "react-paginate";
 
-const TableUser = (props) => {
-    const { listUser, handleClickUpdate, handleClickView, handleClickDelete} = props
+const TableUserPaginate = (props) => {
+    const { listUser, handleClickUpdate, handleClickView, handleClickDelete, fetchListUserWithPaginate, pageCount, setCurrentPage } = props
+
+    const handlePageClick = (event) => {
+        setCurrentPage(event.selected + 1)
+        fetchListUserWithPaginate(event.selected + 1)
+    };
 
     return (
         <>
@@ -41,8 +47,31 @@ const TableUser = (props) => {
                         </tr>}
                 </tbody>
             </table>
+            <div className="user__pagination d-flex justify-content-center">
+                <ReactPaginate
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={2}
+                    pageCount={pageCount} // số lượng trang dựa vào backend 
+                    previousLabel="< previous"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    breakLabel="..."
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    renderOnZeroPageCount={null}
+                    forcePage={props.currentPage - 1}
+                />
+            </div>
         </>
     )
 }
 
-export default TableUser
+export default TableUserPaginate
