@@ -1,4 +1,4 @@
-.login__container {
+.register__container {
   .header {
     height: 45px;
     text-align: right;
@@ -9,17 +9,17 @@
     gap: 10px;
     padding-right: 10px;
 
-    button{
-        border: none;
-        padding: 3px 15px;
-        border-radius: 5px;
-        margin-left: 5px;
-        border: 1px solid #ccc;
-        font-weight: 600;
+    button {
+      border: none;
+      padding: 3px 15px;
+      border-radius: 5px;
+      margin-left: 5px;
+      border: 1px solid #ccc;
+      font-weight: 600;
 
-        &:hover{
-            background-color: rgb(228, 230, 231);
-        }
+      &:hover {
+        background-color: rgb(228, 230, 231);
+      }
     }
   }
 
@@ -41,13 +41,6 @@
       margin-top: 3px;
     }
 
-    .forgot__password {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-
     .btn__submit {
       width: 100%;
       padding: 10px;
@@ -57,26 +50,27 @@
       font-size: larger;
     }
 
-    .pass-group{
+    .pass__group{
         position: relative;
-        .icon-eye{
-          cursor: pointer;
-          position: absolute;
-          right: 10px;
-          bottom: 9px;
+
+        .icons-eye{
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
         }
     }
   }
 
-  .back{
+  .back {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
     cursor: pointer;
-    
-    &:hover{
-        color: #e6dcdc;
+
+    &:hover {
+      color: #e6dcdc;
     }
   }
 }

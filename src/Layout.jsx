@@ -7,6 +7,7 @@ import ManageUser from "./components/Admin/Content/ManageUser";
 import Login from "./components/Auth/Login";
 import App from "./App";
 import { ToastContainer } from 'react-toastify';
+import Register from "./components/Auth/Register";
 
 const Layout = (props) => {
     return (
@@ -28,6 +29,7 @@ const Layout = (props) => {
                 {/* Bê admin ra ngoài k bị ảnh hưởng header của app */}
 
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
 
             <ToastContainer

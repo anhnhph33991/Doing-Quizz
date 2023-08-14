@@ -27,7 +27,7 @@ const Header = () => {
                     {/* Menu Down */}
                     <Nav>
                         <button className='btn__login' onClick={() => handleLogin()}>Login</button>
-                        <button className='btn__signup'>Signup</button>
+                        <button className='btn__signup' onClick={() => { navigate("/register")} }>Signup</button>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
