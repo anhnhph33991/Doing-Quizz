@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import { postLogin } from '../../services/apiService'
 import { toast } from 'react-toastify'
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
+import { useDispatch } from 'react-redux'  
 
 const Login = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isShowHide, setIsShowHide] = useState(false)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const isValidEmail = (email) => {
         // Sử dụng biểu thức chính quy để kiểm tra định dạng email
@@ -34,6 +36,10 @@ const Login = (props) => {
         //submit
         let response = await postLogin(email, password)
         if(response && response.EC === 0){
+            dispatch({
+                type: "FETCH_USER_LOGIN_SUCCESS",
+                payload: response
+            })
             toast.success(response.EM)
             navigate('/')
         }
