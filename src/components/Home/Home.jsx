@@ -1,8 +1,13 @@
 import React from 'react'
 import videoHomePage from "../../assets/for-them-lg.mp4"
 import './home.scss'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
+  const isAuthenticated = useSelector(state => state.user.isAuthenticated) // state.user - ở rootReducer. isAuthenticated ở userReducer : Lấy giá trị biến isAuthenticated ở userReducer
+
+  const account = useSelector(state => state.user.account)
+
   return (
     <div className='container home-container'>
       <div className="row justify-content-end">
