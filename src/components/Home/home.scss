@@ -8,6 +8,28 @@
   .text__item {
     margin-top: 45vh;
     margin-left: 233px;
-    overflow: hidden;
+    overflow: hidden; 
+  }
+
+  .button__item{
+    margin-top: 10px;
+    margin-left: 376px !important;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #b9b9b7;
+
+    &:hover{
+      background-color: #ccc;
+    }
+  }
+
+  .button__start{
+    margin-top: 348px;
+    margin-left: 376px !important;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #b9b9b7;
   }
 }

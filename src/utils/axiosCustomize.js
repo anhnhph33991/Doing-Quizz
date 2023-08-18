@@ -1,5 +1,6 @@
 import axios from "axios";
 import NProgress from "nprogress"; // import loading
+import { store } from "../redux/store"
 
 // config NProgress
 
@@ -16,6 +17,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
+    const access_token = store?.getState()?.user?.account?.access_token; // -?- nếu k có giá trị thì sẽ ra undefined nếu k use ? sẽ gây lỗi
+
+    config.headers["Authorization"] = `Bearer ${access_token}`;
+
     NProgress.start(); // khi gửi req lên thì sẽ start
     return config;
   },
@@ -24,7 +29,7 @@ instance.interceptors.request.use(
   }
 );
 
-// alert message validate be
+// alert message validate BE
 instance.interceptors.response.use(
   function (response) {
     NProgress.done(); // khi nhận res thì sẽ done
