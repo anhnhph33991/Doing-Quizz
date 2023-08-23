@@ -15,10 +15,11 @@ import { TbDashboard } from "react-icons/tb";
 
 import sidebarBg from '../../assets/background-img.jpg';
 import 'react-pro-sidebar/dist/css/styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SideBar = (props) => {
     const { image, collapsed, rtl, toggled, handleToggleSidebar } = props
+    const navigate = useNavigate()
     return (
         <>
             <ProSidebar
@@ -43,7 +44,7 @@ const SideBar = (props) => {
                         }}
                     >
                         <DiReact size={'3em'} color={"00bfff"} />
-                        <span>LuxChill</span>
+                        <span onClick={() => navigate('/')} style={{cursor: "pointer"}}>LuxChill</span>
                     </div>
                 </SidebarHeader>
 
@@ -64,11 +65,16 @@ const SideBar = (props) => {
                             title="Management"
                         >
                             <MenuItem>
-                                User
+                                Quản Lý User
                                 <Link to="/admin/manageusers" />
                             </MenuItem>
-                            <MenuItem>Quizz</MenuItem>
-                            <MenuItem>Question</MenuItem>
+                            <MenuItem>
+                                Quản Lý Bài Quizz
+                                <Link to="/admin/managequizzes" />
+                            </MenuItem>
+                            <MenuItem>
+                                Quản Lý Câu Hỏi
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>

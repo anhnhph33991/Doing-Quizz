@@ -1,4 +1,12 @@
 .listQuiz__container{
     display: flex;
     gap: 50px;
+    .quiz__container{
+        .card__img{
+            height: 200px;
+        }
+        .card-text{
+            height: 50px;
+        }
+    }
 }
