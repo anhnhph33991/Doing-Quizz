@@ -44,5 +44,9 @@
         font-size: 40px;
       }
     }
+
+    .admin__main{
+      height: calc(100vh - 40px);
+    }
   }
 }

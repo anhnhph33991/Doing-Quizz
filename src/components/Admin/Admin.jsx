@@ -5,6 +5,7 @@ import "./admin.scss"
 import { RiArrowLeftDoubleFill, RiArrowRightDoubleFill } from 'react-icons/ri';
 import { Outlet } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const Admin = (props) => {
     const [collapsed, setCollapsed] = useState(false)
@@ -26,7 +27,9 @@ const Admin = (props) => {
                     }
                 </div>
                 <div className="admin__main">
-                    <Outlet />
+                    <PerfectScrollbar>
+                        <Outlet />
+                    </PerfectScrollbar>
                 </div>
             </div>
         </div>

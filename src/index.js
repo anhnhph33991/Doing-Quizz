@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import {store, persistor} from "./redux/store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'nprogress/nprogress.css' // import css của thanh loading bar
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import { PersistGate } from 'redux-persist/integration/react' // import persistGate tránh bug khi app đã chạy mà k lấy được data trong localStorage
 
 // import React Router:
