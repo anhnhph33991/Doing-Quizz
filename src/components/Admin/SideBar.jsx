@@ -54,7 +54,7 @@ const SideBar = (props) => {
                             icon={<TbDashboard />}
                             suffix={<span className="badge red">New</span>}
                         >
-                            Dashboarh
+                            Bảng Điều Kiển
                             <Link to="/admin" />
                         </MenuItem>
                     </Menu>
@@ -62,7 +62,7 @@ const SideBar = (props) => {
                         <SubMenu
                             icon={<MdOutlineManageAccounts />}
                             suffix={<span className="badge yellow">3</span>}
-                            title="Management"
+                            title="Quản Lí"
                         >
                             <MenuItem>
                                 Quản Lý User
