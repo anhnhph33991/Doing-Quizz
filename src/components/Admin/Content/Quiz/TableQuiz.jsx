@@ -23,17 +23,25 @@ const TableQuiz = () => {
         let response = await getAllQuizForAdmin()
         if (response && response.EC === 0) {
             setListQuiz(response.DT)
-            console.log(response)
         }
     }
 
-    const handleModalUpdate = () => {
+    const handleModalUpdate = (quiz) => {
         setIsShowUpdate(true)
+        setDataUpdate(quiz)
     }
 
-    const handleModalDelete = (user) => {
+    const handleModalDelete = (quiz) => {
         setIsShowDelete(true)
-        setDataDelete(user)
+        setDataDelete(quiz)
+    }
+
+    const resetUpdateData = () => {
+        setDataUpdate({})
+    }
+
+    const resetDeleteData = () => {
+        setDataDelete({})
     }
 
     return (
@@ -61,7 +69,7 @@ const TableQuiz = () => {
                                     <td className='d-flex gap-1 justify-content-center'>
                                         <button
                                             className='btn btn-warning'
-                                            onClick={() => handleModalUpdate()}>
+                                            onClick={() => handleModalUpdate(item)}>
                                             <AiFillEdit />
                                         </button>
                                         <button
@@ -80,12 +88,15 @@ const TableQuiz = () => {
                     show={isShowUpdate}
                     setShow={setIsShowUpdate}
                     dataUpdate={dataUpdate}
+                    fetchQuiz={fetchQuiz}
+                    resetUpdateData={resetUpdateData}
                 />
                 <ModalDeleteQuiz
                     show={isShowDelete}
                     setShow={setIsShowDelete}
                     dataDelete={dataDelete}
                     fetchQuiz={fetchQuiz}
+                    resetDeleteData={resetDeleteData}
                 />
             </table>
         </>

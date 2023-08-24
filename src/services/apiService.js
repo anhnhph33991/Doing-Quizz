@@ -74,11 +74,13 @@ const getAllQuizForAdmin = () => {
   return axios.get("api/v1/quiz/all");
 };
 
-const putUpdateQuiz = (description, name, difficulty) => {
+const putUpdateQuiz = (id , name, description, difficulty, image) => {
   const data = new FormData();
+  data.append("id", id);
   data.append("description", description);
   data.append("name", name);
   data.append("difficulty", difficulty);
+  data.append("quizImage", image);
 
   return axios.put("api/v1/quiz", data);
 };

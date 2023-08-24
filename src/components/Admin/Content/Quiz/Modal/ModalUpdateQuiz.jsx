@@ -1,29 +1,27 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
-// import { putUpdateUser } from '../../../services/apiService';
-import { useEffect } from 'react';
+import { putUpdateQuiz } from '../../../../../services/apiService';
 import _ from 'lodash';
 
 const ModalUpdateQuiz = (props) => {
-    const { show, setShow, fetchListUser, dataUpdate, resetUpdateData } = props
-    const [email, setEmail] = useState('')
-    const [password, setPassWord] = useState('')
-    const [username, setUserName] = useState('')
-    const [role, setRole] = useState('USER')
+    const { show, setShow, fetchQuiz, dataUpdate, resetUpdateData } = props
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
+    const [type, setType] = useState('')
     const [image, setImage] = useState("")
     const [previewImg, setPreviewImg] = useState("")
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) { /** _.isEmpty: hàm check object rỗng hay không - ở đây là khác rỗng thì sẽ set cho các trường */
-            setEmail(dataUpdate.email)
-            setUserName(dataUpdate.username)
-            setRole(dataUpdate.role)
+            setName(dataUpdate.name)
+            setDescription(dataUpdate.description)
+            setType(dataUpdate.difficulty)
             setImage("")
-            if(dataUpdate.image){ /** Nếu image có ảnh thì sẽ cập nhật setPre */
+            if (dataUpdate.image) { /** Nếu image có ảnh thì sẽ cập nhật setPre */
                 setPreviewImg(`data:image/jpeg;base64,${dataUpdate.image}`)
             }
         }
@@ -31,13 +29,12 @@ const ModalUpdateQuiz = (props) => {
 
     const handleClose = () => {
         setShow(false)
-        setEmail("")
-        setPassWord("")
-        setUserName("")
-        setRole("USER")
+        setName("")
+        setDescription('')
+        setType('')
         setImage("")
         setPreviewImg("")
-        // resetUpdateData()
+        resetUpdateData()
     };
 
     const handleUpLoadFile = (e) => {
@@ -49,27 +46,21 @@ const ModalUpdateQuiz = (props) => {
         }
     }
 
-    const handleSubmitCreateUser = async () => {
-        // if (!password) {
-        //     toast.error("Vui lòng nhập password!")
-        //     return;
-        // }
-
+    const handleUpdateQuiz = async () => {
         //update data
 
+        const data = await putUpdateQuiz(dataUpdate.id, name, description, type, image)
 
-        // const data = await putUpdateUser(dataUpdate.id ,username, role, image)
+        if (data && data.EC === 0) {
+            toast.success(data.EM)
+            handleClose()
+            // props.setCurrentPage(1)
+            await fetchQuiz() 
+        }
 
-        // if (data && data.EC === 0) {
-        //     toast.success(data.EM)
-        //     handleClose()
-        //     // props.setCurrentPage(1)
-        //     await props.fetchListUserWithPaginate(props.currentPage) 
-        // }
-
-        // if (data && data.EC !== 0) {
-        //     toast.error(data.EM)
-        // }
+        if (data && data.EC !== 0) {
+            toast.error(data.EM)
+        }
     }
 
     return (
@@ -82,24 +73,24 @@ const ModalUpdateQuiz = (props) => {
                     <form className="row g-3">
                         <div className="col-md-6">
                             <label className="form-label">Name</label>
-                            <input 
-                            type="email" 
-                            className="form-control" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} />
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)} />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Description</label>
-                            <input 
-                            type="password" 
-                            className="form-control" 
-                            value={password} 
-                            onChange={(e) => setPassWord(e.target.value)}/>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)} />
                         </div>
                         <div className="col-md-12">
                             <label className="form-label">Type</label>
-                            <select className="form-select" onChange={(e) => setRole(e.target.value)} value={role}>
-                                <option selected value='EASY'>EASY</option>
+                            <select className="form-select" onChange={(e) => setType(e.target.value)} value={type}>
+                                <option value='EASY'>EASY</option>
                                 <option value="MEDIUM">MEDIUM</option>
                                 <option value="HARD">HARD</option>
                             </select>
@@ -110,13 +101,18 @@ const ModalUpdateQuiz = (props) => {
                             </label>
                             <input type="file" id='upload__file' hidden onChange={(e) => handleUpLoadFile(e)} />
                         </div>
+                        <div className="col-md-12 img-preview">
+                            {
+                                previewImg ? (<img src={previewImg} />) : (<span>Preview Image</span>)
+                            }
+                        </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Đóng
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
+                    <Button variant="primary" onClick={() => handleUpdateQuiz()}>
                         Lưu
                     </Button>
                 </Modal.Footer>

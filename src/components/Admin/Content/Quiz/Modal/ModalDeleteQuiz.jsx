@@ -29,7 +29,7 @@ const ModalDeleteQuiz = (props) => {
           <Modal.Title>Xác nhận xóa quiz</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Bạn muốn xóa quiz <b>{dataDelete && dataDelete.id ? dataDelete.id : ""}</b> - Name: <b>{dataDelete && dataDelete.name ? dataDelete.name : ""}</b> - Description: <b>{dataDelete && dataDelete.description ? dataDelete.description : ""}</b>
+          Bạn muốn xóa quiz - ID: <b>{dataDelete && dataDelete.id ? dataDelete.id : ""}</b>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
