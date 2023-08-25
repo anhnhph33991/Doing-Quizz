@@ -12,6 +12,8 @@ import ListQuiz from "./components/User/ListQuiz";
 import DetailQuiz from "./components/User/DetailQuiz";
 import page404 from "./assets/404_page.jpg"
 import ManageQuiz from "./components/Admin/Content/Quiz/ManageQuiz";
+import Question from "./components/Admin/Content/Question/Question";
+
 // 404
 const NotFound = () => {
     return (
@@ -41,6 +43,7 @@ const Layout = (props) => {
                     <Route index element={<Dashboard />} />
                     <Route path="manageusers" element={<ManageUser />} />
                     <Route path="managequizzes" element={<ManageQuiz />} />
+                    <Route path="managequestion" element={<Question />} />
                 </Route>
 
                 <Route path="/login" element={<Login />} />
