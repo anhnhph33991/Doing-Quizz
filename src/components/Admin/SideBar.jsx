@@ -13,7 +13,7 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { TbDashboard } from "react-icons/tb";
 
 
-import sidebarBg from '../../assets/background-img.jpg';
+import sidebarBg from '../../assets/background.jpg';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -29,6 +29,7 @@ const SideBar = (props) => {
                 toggled={toggled}
                 breakPoint="md"
                 onToggle={handleToggleSidebar}
+                style={{color: "#ffffff"}}
             >
                 <SidebarHeader>
                     <div

@@ -19,13 +19,19 @@
         cursor: pointer;
         padding-top: 14px;
         .lable__upload {
-          height: 30px;
-          border: 1px solid #92a5a5;
-          color: #6f3f3f;
-          border-radius: 10px;
-          padding: 0px 10px;
+          // height: 30px;
+          // border: 1px solid #92a5a5;
+          // color: #6f3f3f;
+          // border-radius: 10px;
+          // padding: 0px 10px;
           margin-right: 5px;
           cursor: pointer;
+          color: #6f3f3f;
+          font-size: 25px;
+
+          &:hover{
+            color: blue
+          }
         }
       }
 
@@ -37,11 +43,19 @@
         .icon__add {
           font-size: 25px;
           color: green;
+
+          &:hover{
+            color: blue
+          }
         }
 
         .icon__remove {
           font-size: 25px;
           color: red;
+
+          &:hover{
+            color: blue;
+          }
         }
       }
     }
@@ -68,11 +82,19 @@
         .icon__add {
           font-size: 25px;
           color: green;
+
+          &:hover{
+            color: blue
+          }
         }
 
         .icon__remove {
           font-size: 25px;
           color: red;
+
+          &:hover{
+            color: blue
+          }
         }
       }
     }
