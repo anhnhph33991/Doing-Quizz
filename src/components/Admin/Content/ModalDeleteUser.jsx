@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { deleteUser } from '../../../services/apiService';
 import { toast } from 'react-toastify';
 
 const ModalDeleteUser = (props) => {
-  const {show, setShow, dataDelete, fetchListUser, fetchListUserWithPaginate, setCurrentPage} = props
+  const {show, setShow, dataDelete, fetchListUserWithPaginate, setCurrentPage} = props
   const handleClose = () => setShow(false);
 
   const handleDeleteUser = async () => {

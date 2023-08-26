@@ -1,10 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { FcPlus } from 'react-icons/fc';
-import { toast } from 'react-toastify';
-import { putUpdateUser } from '../../../services/apiService';
 import { useEffect } from 'react';
 import _ from 'lodash';
 

@@ -13,7 +13,7 @@ const TableUserPaginate = (props) => {
 
     return (
         <>
-            <table className="table table-hover table-bordered">
+            <table className="table table-hover table-bordered" style={{height: "477px"}}>
                 <thead>
                     <tr>
                         <th scope="col">ID</th>

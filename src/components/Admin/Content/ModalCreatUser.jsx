@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { postCreatNewUser } from '../../../services/apiService';
 
 const ModalCreateUser = (props) => {
-    const { show, setShow, fetchListUser} = props
+    const { show, setShow} = props
     const [email, setEmail] = useState('')
     const [password, setPassWord] = useState('')
     const [username, setUserName] = useState('')

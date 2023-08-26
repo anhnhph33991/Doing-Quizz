@@ -18,7 +18,7 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SideBar = (props) => {
-    const { image, collapsed, rtl, toggled, handleToggleSidebar } = props
+    const { collapsed, rtl, toggled, handleToggleSidebar } = props
     const navigate = useNavigate()
     return (
         <>

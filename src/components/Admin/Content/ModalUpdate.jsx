@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import _ from 'lodash';
 
 const ModalUpdate = (props) => {
-    const { show, setShow, fetchListUser, dataUpdate, resetUpdateData } = props
+    const { show, setShow, dataUpdate, resetUpdateData } = props
     const [email, setEmail] = useState('')
     const [password, setPassWord] = useState('')
     const [username, setUserName] = useState('')

@@ -17,6 +17,7 @@ const DetailQuiz = (props) => {
 
   useEffect(() => {
     fetchQuestions()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quizId])
 
   const fetchQuestions = async () => {

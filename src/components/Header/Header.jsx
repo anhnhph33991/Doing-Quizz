@@ -8,7 +8,8 @@ import { NavDropdown } from 'react-bootstrap';
 
 const Header = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated) // state.user - ở rootReducer. isAuthenticated ở userReducer : Lấy giá trị biến isAuthenticated ở userReducer
-    const account = useSelector(state => state.user.account)
+    
+    // const account = useSelector(state => state.user.account)
 
     const navigate = useNavigate()
 

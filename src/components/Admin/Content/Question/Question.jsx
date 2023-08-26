@@ -20,13 +20,13 @@ const Question = () => {
         [
             {
                 id: uuidv4(),
-                description: "question 1",
+                description: "",
                 imageFile: "",
                 imageName: "",
                 answers: [
                     {
                         id: uuidv4(),
-                        description: "answer 1",
+                        description: "",
                         isCorrect: false
                     }
                 ]
@@ -81,9 +81,51 @@ const Question = () => {
             setQuestions(questionClone)
         }
     }
-    console.log(questions)
 
+    const handleOnChange = (type, questionId, value) => {
 
+        let questionClone = _.cloneDeep(questions)
+        let index = questionClone.findIndex(item => item.id === questionId)
+        if (index > -1) {
+            questionClone[index].description = value // đã tìm được tk id nào nhập vào thì sẽ cho desc = value => e.target.value
+            setQuestions(questionClone)
+        }
+    }
+
+    const handleOnChangeFileQuestion = (questionId, e) => {
+        let questionClone = _.cloneDeep(questions)
+        let index = questionClone.findIndex(item => item.id === questionId)
+        if (index > -1 && e.target && e.target.files && e.target.files[0]) {
+            questionClone[index].imageFile = e.target.files[0] // gán file[0] cho imageFile
+            questionClone[index].imageName = e.target.files[0].name
+            setQuestions(questionClone)
+        }
+    }
+
+    const handleAnswerQuestion = (type, questionId, answerId, value) => {
+        let questionClone = _.cloneDeep(questions)
+        let index = questionClone.findIndex(item => item.id === questionId)
+        if (index > -1) {
+            questionClone[index].answers =
+                questionClone[index].answers.map((answer) => {
+                    if(answer.id === answerId){
+                        if(type === "CHECKBOX"){
+                            answer.isCorrect = value
+                        }
+
+                        if(type === "INPUT"){
+                            answer.description = value;
+                        }
+                    }
+                    return answer
+                })
+            setQuestions(questionClone)
+        }
+    }
+
+    const handleSubmitQuestionForQuiz = () => {
+        console.log(questions)
+    }
 
     return (
         <div className='question__container'>
@@ -119,15 +161,30 @@ const Question = () => {
                                             className="form-control"
                                             placeholder="name@example.com"
                                             value={question.description}
+                                            onChange={(e) => handleOnChange("QUESTION", question.id, e.target.value)}
                                         />
                                         <label>Question {index + 1} Description</label>
                                     </div>
                                     <div className="group__upload">
-                                        <motion.label whileTap={{ scale: 1.1 }}>
+                                        <motion.label
+                                            whileTap={{ scale: 1.1 }}
+                                            htmlFor={`${question.id}`}
+                                        >
                                             <AiOutlineCloudUpload className='lable__upload' />
                                         </motion.label>
-                                        <input type="file" hidden />
-                                        <span>0 file is uploaded</span>
+                                        <input
+                                            id={`${question.id}`}
+                                            type="file"
+                                            hidden
+                                            onChange={(e) => handleOnChangeFileQuestion(question.id, e)}
+                                        />
+                                        <span>
+                                            {
+                                                question.imageName
+                                                    ? question.imageName
+                                                    : '0 file is uploaded'
+                                            }
+                                        </span>
                                     </div>
                                     <div className="btn__add">
                                         <motion.span
@@ -155,10 +212,13 @@ const Question = () => {
                                                 <input
                                                     className="form-check-input iscorrect"
                                                     type="checkbox"
+                                                    checked={answer.isCorrect}
+                                                    onChange={(e) => handleAnswerQuestion("CHECKBOX", question.id,answer.id, e.target.checked)}
                                                 />
                                                 <div className="form-floating answes__name">
                                                     <input type="text" className="form-control" placeholder="name@example.com"
                                                         value={answer.description}
+                                                        onChange={(e) => handleAnswerQuestion("INPUT", question.id,answer.id, e.target.value)}
                                                     />
                                                     <label>Answer {index + 1}</label>
                                                 </div>
@@ -190,7 +250,15 @@ const Question = () => {
                     })
                 }
 
-
+                {
+                    questions && questions.length > 0 &&
+                    <div className='d-flex'>
+                        <button 
+                        className='btn btn-success'
+                        onClick={() => handleSubmitQuestionForQuiz()}
+                        >Save Question</button>
+                    </div>
+                }
 
             </div>
         </div>
