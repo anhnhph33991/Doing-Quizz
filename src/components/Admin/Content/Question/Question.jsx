@@ -5,6 +5,7 @@ import { AiFillPlusCircle, AiFillMinusCircle, AiOutlineMinusCircle, AiOutlinePlu
 import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import _ from "lodash"
+import Lightbox from "react-awesome-lightbox";
 
 const Question = () => {
 
@@ -15,7 +16,6 @@ const Question = () => {
     ];
 
     const [selectedQuiz, setSelectedQuiz] = useState({})
-
     const [questions, setQuestions] = useState(
         [
             {
@@ -33,6 +33,12 @@ const Question = () => {
             }
         ]
     )
+    const [isPreviewImage, setIsPreviewImage] = useState(false)
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: "",
+        url: ""
+    })
+
 
     const handleAddRemoveQuestion = (type, id) => {
         if (type === "ADD") {
@@ -108,12 +114,12 @@ const Question = () => {
         if (index > -1) {
             questionClone[index].answers =
                 questionClone[index].answers.map((answer) => {
-                    if(answer.id === answerId){
-                        if(type === "CHECKBOX"){
+                    if (answer.id === answerId) {
+                        if (type === "CHECKBOX") {
                             answer.isCorrect = value
                         }
 
-                        if(type === "INPUT"){
+                        if (type === "INPUT") {
                             answer.description = value;
                         }
                     }
@@ -125,6 +131,19 @@ const Question = () => {
 
     const handleSubmitQuestionForQuiz = () => {
         console.log(questions)
+    }
+
+    const handlePreviewImage = (questionId) => {
+        let questionClone = _.cloneDeep(questions)
+        let index = questionClone.findIndex(item => item.id === questionId)
+        if(index > -1){
+            setDataImagePreview({
+                url: URL.createObjectURL(questionClone[index].imageFile), // convert image preview 
+                title: questionClone[index].imageName
+            })
+
+            setIsPreviewImage(true)
+        }
     }
 
     return (
@@ -181,7 +200,10 @@ const Question = () => {
                                         <span>
                                             {
                                                 question.imageName
-                                                    ? question.imageName
+                                                    ? <span 
+                                                    onClick={() => handlePreviewImage(question.id)}>
+                                                        {question.imageName}
+                                                    </span>
                                                     : '0 file is uploaded'
                                             }
                                         </span>
@@ -213,12 +235,12 @@ const Question = () => {
                                                     className="form-check-input iscorrect"
                                                     type="checkbox"
                                                     checked={answer.isCorrect}
-                                                    onChange={(e) => handleAnswerQuestion("CHECKBOX", question.id,answer.id, e.target.checked)}
+                                                    onChange={(e) => handleAnswerQuestion("CHECKBOX", question.id, answer.id, e.target.checked)}
                                                 />
                                                 <div className="form-floating answes__name">
                                                     <input type="text" className="form-control" placeholder="name@example.com"
                                                         value={answer.description}
-                                                        onChange={(e) => handleAnswerQuestion("INPUT", question.id,answer.id, e.target.value)}
+                                                        onChange={(e) => handleAnswerQuestion("INPUT", question.id, answer.id, e.target.value)}
                                                     />
                                                     <label>Answer {index + 1}</label>
                                                 </div>
@@ -244,7 +266,6 @@ const Question = () => {
                                         )
                                     })
                                 }
-
                             </div>
                         )
                     })
@@ -253,14 +274,23 @@ const Question = () => {
                 {
                     questions && questions.length > 0 &&
                     <div className='d-flex'>
-                        <button 
-                        className='btn btn-success'
-                        onClick={() => handleSubmitQuestionForQuiz()}
+                        <button
+                            className='btn btn-success'
+                            onClick={() => handleSubmitQuestionForQuiz()}
                         >Save Question</button>
                     </div>
                 }
 
+                {isPreviewImage === true &&
+                    <Lightbox
+                        image={dataImagePreview.url}
+                        title={dataImagePreview.title}
+                        onClose={() => setIsPreviewImage(false)}
+                    ></Lightbox>
+                }
             </div>
+
+
         </div>
     )
 }
