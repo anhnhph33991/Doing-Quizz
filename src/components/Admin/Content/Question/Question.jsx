@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select';
 import './question.scss'
 import { AiFillPlusCircle, AiFillMinusCircle, AiOutlineMinusCircle, AiOutlinePlusCircle, AiOutlineCloudUpload } from 'react-icons/ai';
@@ -6,16 +6,16 @@ import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
+import { getAllQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from '../../../../services/apiService';
 
 const Question = () => {
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    // const options = [
+    //     { value: 'chocolate', label: 'Chocolate' },
+    //     { value: 'strawberry', label: 'Strawberry' },
+    //     { value: 'vanilla', label: 'Vanilla' },
+    // ];
 
-    const [selectedQuiz, setSelectedQuiz] = useState({})
     const [questions, setQuestions] = useState(
         [
             {
@@ -33,11 +33,32 @@ const Question = () => {
             }
         ]
     )
+
     const [isPreviewImage, setIsPreviewImage] = useState(false)
     const [dataImagePreview, setDataImagePreview] = useState({
         title: "",
         url: ""
     })
+
+    const [listQuiz, setListQuiz] = useState([])
+    const [selectedQuiz, setSelectedQuiz] = useState({})
+
+    useEffect(() => {
+        fetchQuiz()
+    }, [])
+
+    const fetchQuiz = async () => {
+        let response = await getAllQuizForAdmin()
+        if (response && response.EC === 0) {
+            let newQuiz = response.DT.map((item) => { // thay vì set respone.DT như thường thì phải map qua và return trả về object như mảng options cần 
+                return {
+                    value: item.id,
+                    label: `${item.id} - ${item.description}`
+                }
+            })
+            setListQuiz(newQuiz)
+        }
+    }
 
 
     const handleAddRemoveQuestion = (type, id) => {
@@ -129,19 +150,31 @@ const Question = () => {
         }
     }
 
-    const handleSubmitQuestionForQuiz = () => {
-        console.log(questions)
+    const handleSubmitQuestionForQuiz = async () => {
+        // todo
+        // validate data
+
+
+            //submit questions
+        await Promise.all(questions.map(async (question) => {
+            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
+
+            //submit answers
+            await Promise.all(question.answers.map(async (answer) => {
+                await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
+            }))
+            console.log('>> check q', q);
+        }));
     }
 
     const handlePreviewImage = (questionId) => {
         let questionClone = _.cloneDeep(questions)
         let index = questionClone.findIndex(item => item.id === questionId)
-        if(index > -1){
+        if (index > -1) {
             setDataImagePreview({
                 url: URL.createObjectURL(questionClone[index].imageFile), // convert image preview 
                 title: questionClone[index].imageName
             })
-
             setIsPreviewImage(true)
         }
     }
@@ -159,7 +192,7 @@ const Question = () => {
                     <Select
                         defaultValue={selectedQuiz}
                         onChange={setSelectedQuiz}
-                        options={options}
+                        options={listQuiz}
                     />
                 </div>
 
@@ -200,8 +233,8 @@ const Question = () => {
                                         <span>
                                             {
                                                 question.imageName
-                                                    ? <span 
-                                                    onClick={() => handlePreviewImage(question.id)}>
+                                                    ? <span
+                                                        onClick={() => handlePreviewImage(question.id)}>
                                                         {question.imageName}
                                                     </span>
                                                     : '0 file is uploaded'
