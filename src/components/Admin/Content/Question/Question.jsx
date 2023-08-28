@@ -155,16 +155,34 @@ const Question = () => {
         // validate data
 
 
-            //submit questions
-        await Promise.all(questions.map(async (question) => {
-            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
+        //     //submit questions
+        // await Promise.all(questions.map(async (question) => {
+        //     const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
 
-            //submit answers
-            await Promise.all(question.answers.map(async (answer) => {
-                await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
-            }))
-            console.log('>> check q', q);
-        }));
+        //     //submit answers
+        //     await Promise.all(question.answers.map(async (answer) => {
+        //         await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
+        //     }))
+
+        // }));
+
+        // submit questions
+        for (const question of questions) {
+            const q = await postCreateNewQuestionForQuiz(
+                +selectedQuiz.value,
+                question.description,
+                question.imageFile
+            )
+            //submit data
+            for (const answer of question.answers) {
+                await postCreateNewAnswerForQuestion(
+                    answer.description,
+                    answer.isCorrect,
+                    q.DT.id
+                )
+            }
+            
+        }
     }
 
     const handlePreviewImage = (questionId) => {
