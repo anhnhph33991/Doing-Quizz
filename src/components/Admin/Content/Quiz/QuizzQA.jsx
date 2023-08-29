@@ -70,10 +70,7 @@ const QuizzQA = () => {
                 }
                 newQA.push(q)
             }
-
             setQuestions(newQA)
-
-            console.log(newQA)
         }
     }
 
