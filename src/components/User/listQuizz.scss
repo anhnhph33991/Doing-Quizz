@@ -1,6 +1,7 @@
 .listQuiz__container{
     display: flex;
-    gap: 50px;
+    gap: 48px;
+    flex-wrap: wrap;
     .quiz__container{
         .card__img{
             height: 200px;

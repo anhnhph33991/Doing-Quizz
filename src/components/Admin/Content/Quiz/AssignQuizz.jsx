@@ -1,6 +1,7 @@
 import Select from 'react-select';
 import { useState, useEffect } from 'react';
-import { getAllQuizForAdmin, getAllUser } from '../../../../services/apiService';
+import { getAllQuizForAdmin, getAllUser, postAssignQuizz } from '../../../../services/apiService';
+import { toast } from 'react-toastify';
 
 export const AssignQuizz = () => {
 
@@ -16,8 +17,20 @@ export const AssignQuizz = () => {
     }, [])
 
     const fetchQuiz = async () => {
+        let response = await getAllQuizForAdmin()
+        if (response && response.EC === 0) {
+            let newQuiz = response.DT.map((item) => {
+                return {
+                    value: item.id,
+                    label: `${item.id} - ${item.name}`
+                }
+            })
+            setListQuiz(newQuiz)
+        }
+    }
+
+    const fetchUser = async () => {
         let response = await getAllUser()
-        console.log(response)
         if (response && response.EC === 0) {
             let users = response.DT.map((item) => {
                 return {
@@ -29,17 +42,17 @@ export const AssignQuizz = () => {
         }
     }
 
-    const fetchUser = async () => {
-        let response = await getAllQuizForAdmin()
-        if (response && response.EC === 0) {
-            let newQuiz = response.DT.map((item) => { // thay vì set respone.DT như thường thì phải map qua và return trả về object như mảng options cần 
-                return {
-                    value: item.id,
-                    label: `${item.id} - ${item.description}`
-                }
-            })
-            setListQuiz(newQuiz)
+    const handleAssign = async () => {
+        let response = await postAssignQuizz(selectedQuiz.value, selectedUser.value)
+        if(response && response.EC === 0){
+            toast.success(response.EM)
+        }else{
+            toast.error(response.EM)
         }
+
+        // if(response && response.EC !== 0){
+        //     toast.error(response.EM)
+        // }
     }
 
     return (
@@ -57,12 +70,14 @@ export const AssignQuizz = () => {
                 <label className='mb-2'>Chọn người dùng:</label>
                 <Select
                     defaultValue={selectedUser}
-                    onChange={setListUser}
+                    onChange={setSelectedUser}
                     options={listUser}
                 />
             </div>
             <div className='d-flex justify-content-end'>
-                <button className='btn btn-warning mt-3'>Assign</button>
+                <button className='btn btn-warning mt-3'
+                    onClick={() => handleAssign()}
+                >Assign</button>
             </div>
         </div>
     )

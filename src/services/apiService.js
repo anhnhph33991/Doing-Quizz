@@ -74,7 +74,7 @@ const getAllQuizForAdmin = () => {
   return axios.get("api/v1/quiz/all");
 };
 
-const putUpdateQuiz = (id , name, description, difficulty, image) => {
+const putUpdateQuiz = (id, name, description, difficulty, image) => {
   const data = new FormData();
   data.append("id", id);
   data.append("description", description);
@@ -87,7 +87,7 @@ const putUpdateQuiz = (id , name, description, difficulty, image) => {
 
 const deleteQuiz = (id) => {
   return axios.delete(`api/v1/quiz/${id}`);
-}
+};
 
 const postCreateNewQuestionForQuiz = (quiz_id, description, questionImage) => {
   // kiểu form data
@@ -97,16 +97,31 @@ const postCreateNewQuestionForQuiz = (quiz_id, description, questionImage) => {
   data.append("questionImage", questionImage);
 
   return axios.post("api/v1/question", data);
-}
+};
 
-const postCreateNewAnswerForQuestion = (description, correct_answer, question_id) => {
+const postCreateNewAnswerForQuestion = (
+  description,
+  correct_answer,
+  question_id
+) => {
   // kiểu x-www-form-urlencoded
   return axios.post("api/v1/answer", {
-    description, correct_answer, question_id
+    description,
+    correct_answer,
+    question_id,
   });
+};
+
+const postAssignQuizz = (quizId, userId) => {
+  return axios.post("api/v1/quiz-assign-to-user", {
+    quizId,
+    userId,
+  });
+};
+
+const getQuizWithQA = (quizId) => {
+  return axios.get(`api/v1/quiz-with-qa/${quizId}`);
 }
-
-
 
 export {
   postCreatNewUser,
@@ -124,5 +139,7 @@ export {
   putUpdateQuiz,
   deleteQuiz,
   postCreateNewQuestionForQuiz,
-  postCreateNewAnswerForQuestion
+  postCreateNewAnswerForQuestion,
+  postAssignQuizz,
+  getQuizWithQA
 };

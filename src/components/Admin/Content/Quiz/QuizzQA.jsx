@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select';
 import './QuizzQA.scss'
@@ -6,7 +7,7 @@ import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
-import { getAllQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from '../../../../services/apiService';
+import { getAllQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion, getQuizWithQA } from '../../../../services/apiService';
 import { toast } from 'react-toastify';
 
 
@@ -41,6 +42,40 @@ const QuizzQA = () => {
     useEffect(() => {
         fetchQuiz()
     }, [])
+
+    useEffect(() => {
+        if(selectedQuiz && selectedQuiz.value){ // có selectedQuiz.value === id thì mới call api - nếu k có if sẽ tự callapi 
+            fetchQuizWithQA()
+        }
+    }, [selectedQuiz])  // khi nào giá trị của biến được thay đổi thì logic sẽ thực hiện // life cycle  
+
+    function urltofile(url, filename, mimeType){
+        return (fetch(url)
+            .then(function(res){return res.arrayBuffer()})
+            .then(function(buf){return new File([buf], filename, {type: mimeType})})
+        )
+    }
+
+    const fetchQuizWithQA = async () => {
+        let response = await getQuizWithQA(selectedQuiz.value);
+        if (response && response.EC === 0) {
+            //convert base 64 to file object
+            // khi duyệt func bất đồng bộ thì dùng for k thể dùng map
+            let newQA = []
+            for(let i = 0; i < response.DT.qa.length; i++){
+                let q = response.DT.qa[i]
+                if(q.imageFile){
+                    q.imageName = `Question-${q.id}.png`
+                    q.imageFile = await urltofile(`data:image/png;base64,${q.imageFile}`, `Question-${q.id}.png`, 'image/png')
+                }
+                newQA.push(q)
+            }
+
+            setQuestions(newQA)
+
+            console.log(newQA)
+        }
+    }
 
     const fetchQuiz = async () => {
         let response = await getAllQuizForAdmin()

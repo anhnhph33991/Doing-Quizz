@@ -1,6 +1,7 @@
 import "./App.scss";
 import Header from "./components/Header/Header";
 import { Outlet } from "react-router-dom";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 const App = () => {
   return (
@@ -12,7 +13,9 @@ const App = () => {
       <div className="main-container">
         <div className="sidenav-container"></div>
         <div className="app-content">
-          <Outlet /> {/* Hiển thị componest của router con */}
+          <PerfectScrollbar> {/** Bọc outlet trong scroolbar để có thanh cuộn */}
+            <Outlet /> {/* Hiển thị componest của router con */}
+          </PerfectScrollbar>
         </div>
       </div>
     </div>
