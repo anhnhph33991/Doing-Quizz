@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
-import { getAllQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion, getQuizWithQA } from '../../../../services/apiService';
+import { getAllQuizForAdmin, getQuizWithQA, postUpsertQA } from '../../../../services/apiService';
 import { toast } from 'react-toastify';
 
 
@@ -223,27 +223,32 @@ const QuizzQA = () => {
             return;
         }
 
+        let questionsClone = _.cloneDeep(questions)
 
-        // submit questions
-        for (const question of questions) {
-            const q = await postCreateNewQuestionForQuiz(
-                +selectedQuiz.value,
-                question.description,
-                question.imageFile
-            )
-            //submit answer
-            for (const answer of question.answers) {
-                await postCreateNewAnswerForQuestion(
-                    answer.description,
-                    answer.isCorrect,
-                    q.DT.id
-                )
+        for(let i = 0; i< questionsClone.length; i++){
+            if(questionsClone[i].imageFile){
+                questionsClone[i].imageFile = await toBase64(questionsClone[i].imageFile)
             }
         }
+        let response = await postUpsertQA({
+            quizId: selectedQuiz.value,
+            questions: questionsClone
+        })
 
-        toast.success("Create questions and ansers succed!");
-        setQuestions(initQuestions)
+        if(response && response.EC === 0){
+            toast.success(response.EM);
+            fetchQuizWithQA()
+        }
+        // setQuestions(initQuestions)
     }
+
+    // convert base64 
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+    });
 
     const handlePreviewImage = (questionId) => {
         let questionClone = _.cloneDeep(questions)
@@ -256,6 +261,8 @@ const QuizzQA = () => {
             setIsPreviewImage(true)
         }
     }
+
+
 
     return (
         <div className='question__container'>
