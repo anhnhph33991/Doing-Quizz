@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import _ from "lodash"
+import Lightbox from "react-awesome-lightbox";
+
 
 const Question = (props) => {
     const { data, index, handleCheckBox } = props;
+    const [isPreviewImage,setIsPreviewImage] = useState(false)
     if (_.isEmpty(data)) {
         return (<></>) // nếu array rỗng thì k render ra gì
     }
@@ -19,7 +22,18 @@ const Question = (props) => {
             {data.image
                 ?
                 <div className='q__image'>
-                    <img src={`data:image/jpeg;base64,${data.image}`} alt="" />
+                    <img 
+                    src={`data:image/jpeg;base64,${data.image}`} 
+                    alt="" 
+                    onClick={() => setIsPreviewImage(true)}
+                    />
+                    {isPreviewImage === true &&
+                    <Lightbox
+                        image={`data:image/jpeg;base64,${data.image}`}
+                        title={'question image'}
+                        onClose={() => setIsPreviewImage(false)}
+                    ></Lightbox>
+                }
                 </div>
                 :
                 <div className="q__image">
