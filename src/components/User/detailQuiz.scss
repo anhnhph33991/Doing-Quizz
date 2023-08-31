@@ -73,7 +73,7 @@
       padding-top: 15px;
 
       .question{
-        border: 1px solid #8f4646;
+        border: 1px solid #a09595;
         height: 40px;
         width: 40px;
         border-radius: 50%;
@@ -83,6 +83,14 @@
         cursor: pointer;
 
         &:hover{
+          background-color: #ece4e4;
+        }
+
+        &.selected{  // khi câu hỏi === true sẽ add class vào div
+          background-color: #b5afaf;
+        }
+
+        &.clicked{  
           color: red;
         }
       }
