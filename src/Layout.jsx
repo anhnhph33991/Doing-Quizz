@@ -12,12 +12,13 @@ import DetailQuiz from "./components/User/DetailQuiz";
 import page404 from "./assets/404_page.jpg"
 import ManageQuiz from "./components/Admin/Content/Quiz/ManageQuiz";
 import Question from "./components/Admin/Content/Question/Question";
+import { PrivateRouter } from "./routes/PrivateRouter";
 
 // 404
 const NotFound = () => {
     return (
         <div>
-            <img src={page404} alt="404.Not found data with your current URL" className="vh-100 vw-100"/>
+            <img src={page404} alt="404.Not found data with your current URL" className="vh-100 vw-100" />
         </div>
     )
 }
@@ -32,13 +33,22 @@ const Layout = (props) => {
                 <Route path="/" element={<App />}>
                     {/* truyền props index thay vì path để / sẽ có index là components home */}
                     <Route index element={<Home />} />
-                    <Route path="user" element={<ListQuiz />} />
+                    <Route path="user" element={
+                        <PrivateRouter>
+                            <ListQuiz />
+                        </PrivateRouter>
+                    }
+                    />
                 </Route>
 
                 <Route path="/quiz/:id" element={<DetailQuiz />} />
 
                 {/* Bê admin ra ngoài k bị ảnh hưởng header của app */}
-                <Route path="/admin" element={<Admin />}>
+                <Route path="/admin" element={
+                    <PrivateRouter>
+                        <Admin />
+                    </PrivateRouter>
+                }>
                     <Route index element={<Dashboard />} />
                     <Route path="manageusers" element={<ManageUser />} />
                     <Route path="managequizzes" element={<ManageQuiz />} />
@@ -47,6 +57,7 @@ const Layout = (props) => {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/test" element={<PrivateRouter />} />
 
                 {/** Khi vào đường link k trùng ở trên sẽ auto vào components này */}
                 <Route path="*" element={<NotFound />} />

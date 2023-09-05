@@ -38,8 +38,7 @@ export const RightContent = (props) => {
             if (isUnAnswered) {
                 return; // nếu câu hỏi đã được trả lời sẽ k thêm gì return;
             }
-        }
-
+        }   
         refDiv.current[index].className = 'question clicked'
     }
 
