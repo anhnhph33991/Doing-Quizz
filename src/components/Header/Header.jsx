@@ -8,6 +8,7 @@ import { NavDropdown } from 'react-bootstrap';
 import { logout } from '../../services/apiService';
 import { toast } from 'react-toastify';
 import { doLogout } from '../../redux/action/userAction';
+import { Language } from './Language';
 
 const Header = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated) // state.user - ở rootReducer. isAuthenticated ở userReducer : Lấy giá trị biến isAuthenticated ở userReducer
@@ -46,7 +47,10 @@ const Header = () => {
                     </Nav>
 
                     {/* Menu Down */}
-                    <Nav>
+                    <Nav className='d-flex gap-2'>
+                        
+                        <Language/>
+
                         {isAuthenticated === false
                             ?
                             <>
@@ -59,7 +63,6 @@ const Header = () => {
                                 <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
                             </NavDropdown>
                         }
-
                     </Nav>
                 </Navbar.Collapse>
             </Container>

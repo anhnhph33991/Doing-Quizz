@@ -8,6 +8,7 @@ import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { useDispatch } from 'react-redux'
 import { doLogin } from '../../redux/action/userAction'
 import { ImSpinner10 } from 'react-icons/im';
+import { Language } from '../Header/Language'
 
 
 const Login = (props) => {
@@ -64,6 +65,7 @@ const Login = (props) => {
             <div className="header">
                 <span>Bạn chưa có Account ?</span>
                 <button onClick={() => { navigate("/register") }}>Đăng Kí</button>
+                <Language/>
             </div>
 
             <div className="title col-4 mx-auto">

@@ -39,4 +39,10 @@
       color: black;
     }
   }
+
+  .languages {
+    .dropdown-toggle::after {
+      display: none;
+    }
+  }
 }

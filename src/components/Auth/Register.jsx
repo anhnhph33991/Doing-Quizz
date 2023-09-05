@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify'
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
+import { Language } from "../Header/Language"
 
 const Register = () => {
     const [username, setUserName] = useState("")
@@ -53,6 +54,7 @@ const Register = () => {
             <div className="header">
                 <span>Bạn đã có Account ?</span>
                 <button onClick={() => { navigate('/login') }}>Đăng Nhập</button>
+                <Language/>
             </div>
 
             <div className="title col-4 mx-auto">
