@@ -127,6 +127,10 @@ const postUpsertQA = (data) => {
   return axios.post("api/v1/quiz-upsert-qa", { ...data });
 };
 
+const logout = (email, refresh_token) => {
+  return axios.post("api/v1/logout", { email, refresh_token });
+};
+
 export {
   postCreatNewUser,
   getAllUser,
@@ -147,4 +151,5 @@ export {
   postAssignQuizz,
   getQuizWithQA,
   postUpsertQA,
+  logout,
 };

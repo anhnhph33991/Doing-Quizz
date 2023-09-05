@@ -37,7 +37,7 @@ const Login = (props) => {
             return
         }
 
-        setIsLoading(true) 
+        setIsLoading(true)
         //submit
         let response = await postLogin(email, password)
         if (response && response.EC === 0) {
@@ -50,6 +50,12 @@ const Login = (props) => {
         if (response && +response.EC !== 0) {
             toast.error(response.EM)
             setIsLoading(false)
+        }
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleLogin()
         }
     }
 
@@ -85,6 +91,7 @@ const Login = (props) => {
                         className='form-control'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e)}
                     />
                     {isShowHide ?
                         <span className="icon-eye" onClick={() => setIsShowHide(false)}>
@@ -102,7 +109,7 @@ const Login = (props) => {
                         onClick={() => handleLogin()}
                         disabled={isLoading}
                     >
-                        {isLoading === true && <ImSpinner10 className='loaderIcon' />} 
+                        {isLoading === true && <ImSpinner10 className='loaderIcon' />}
                         <span>Login</span>
                     </button>
                 </div>
