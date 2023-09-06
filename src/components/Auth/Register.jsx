@@ -46,9 +46,6 @@ const Register = () => {
             toast.error(response.EM)
         }
     }
-
-
-
     return (
         <div className='register__container'>
             <div className="header">

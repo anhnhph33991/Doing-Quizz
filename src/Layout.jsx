@@ -13,6 +13,7 @@ import page404 from "./assets/404_page.jpg"
 import ManageQuiz from "./components/Admin/Content/Quiz/ManageQuiz";
 import Question from "./components/Admin/Content/Question/Question";
 import { PrivateRouter } from "./routes/PrivateRouter";
+import { Suspense } from "react";
 
 // 404
 const NotFound = () => {
@@ -26,7 +27,7 @@ const NotFound = () => {
 
 const Layout = (props) => {
     return (
-        <>
+        <Suspense fallback={<div>hi hi hi</div>}>
             {/** Bọc app vào router */}
             <Routes>
                 {/* Use Router App bọc tất cả các router còn lại kế thừa header.... */}
@@ -75,7 +76,7 @@ const Layout = (props) => {
                 pauseOnHover
                 theme="dark"
             />
-        </>
+        </Suspense>
     )
 }
 
