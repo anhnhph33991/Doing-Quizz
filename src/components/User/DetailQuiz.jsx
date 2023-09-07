@@ -41,7 +41,7 @@ const DetailQuiz = (props) => {
             item.answers.isSelected = false // thêm thuộc tính isSelected vào answers 
             answers.push(item.answers)
           })
-
+          answers = _.orderBy(answers, ['id'], ['asc'])
           return { questionId: key, answers, questionDescription, image }
         })
         .value() // lấy ra / đọc dữ liệu

@@ -48,8 +48,8 @@ const Header = () => {
 
                     {/* Menu Down */}
                     <Nav className='d-flex gap-2'>
-                        
-                        <Language/>
+
+                        <Language />
 
                         {isAuthenticated === false
                             ?
