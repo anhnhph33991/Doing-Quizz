@@ -1,0 +1,66 @@
+.admin-container {
+  display: flex;
+  .admin-sidebar {
+    .pro-sidebar {
+      height: 100vh;
+      .sidebar-btn-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .sidebar-btn {
+          transition: width 0.3s;
+          width: 150px;
+          padding: 1px 15px;
+          border-radius: 40px;
+          background: rgba(255, 255, 255, 0.05);
+          color: #adadad;
+          text-decoration: none;
+          margin: 0 auto;
+          height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          span {
+            margin-left: 5px;
+            font-size: 13px;
+          }
+          &:hover {
+            color: #dee2ec;
+          }
+        }
+      }
+    }
+  }
+
+  .admin-content {
+    width: 100%;
+    .admin__header {
+      height: 40px;
+      background-color: #f8f8f8;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px 0 10px;
+      align-items: center;
+      .showHide__icon {
+        cursor: pointer;
+        font-size: 26px;
+      }
+
+      .rightside {
+        display: flex;
+        gap: 20px;
+        .languages {
+          .dropdown-toggle::after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .admin__main {
+      height: calc(100vh - 40px);
+    }
+  }
+}

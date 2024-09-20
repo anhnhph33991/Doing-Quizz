@@ -1,16 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import {store, persistor} from "./redux/store";
+// import React Router:
+import { BrowserRouter} from "react-router-dom";
+import { PersistGate } from 'redux-persist/integration/react' // import persistGate tránh bug khi app đã chạy mà k lấy được data trong localStorage
+import Layout from "./Layout";
+import "bootstrap/dist/css/bootstrap.min.css";
+import 'nprogress/nprogress.css' // import css của thanh loading bar
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import "react-awesome-lightbox/build/style.css";
+import i18n from "./utils/i18n";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
     {/* <React.StrictMode> */}
-      <App />
+    <BrowserRouter>
+      <Layout/>
+    </BrowserRouter>
     {/* </React.StrictMode> */}
+    </PersistGate>
   </Provider>
 );
 

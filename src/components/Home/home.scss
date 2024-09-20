@@ -1,0 +1,35 @@
+.home-container {
+  .video__homePage {
+    position: fixed;
+    height: 100%;
+    width: 60%;
+  }
+
+  .text__item {
+    margin-top: 45vh;
+    margin-left: 328px;
+    overflow: hidden; 
+  }
+
+  .button__item{
+    margin-top: 10px;
+    margin-left: 423px !important;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #b9b9b7;
+
+    &:hover{
+      background-color: #ccc;
+    }
+  }
+
+  .button__start{
+    margin-top: 450px;
+    margin-left: 423px !important;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #b9b9b7;
+  }
+}
